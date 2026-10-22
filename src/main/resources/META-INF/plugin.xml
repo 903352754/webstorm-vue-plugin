@@ -1,0 +1,39 @@
+<idea-plugin>
+  <id>com.github.vue3setupcreator</id>
+  <name>Vue Script Setup Creator</name>
+  <version>1.0.0</version>
+  <vendor>vue3-setup-creator</vendor>
+
+  <description><![CDATA[
+    <p>Detects variables and methods that are used inside the <code>&lt;template&gt;</code> block of a
+    Vue 3 single file component but are never defined.</p>
+    <p>When the mouse is moved over such an identifier the quick fixes <b>创建变量</b> (create variable)
+    and <b>创建方法</b> (create method) are offered. Both of them add the new binding to the
+    <code>&lt;script setup&gt;</code> block of the component, the block is created automatically when it
+    does not exist yet.</p>
+  ]]></description>
+
+  <change-notes><![CDATA[
+    <p><b>1.0.0</b></p>
+    <ul>
+      <li>Detects undefined variables and methods in Vue 3 templates.</li>
+      <li>Quick fixes “创建变量” / “创建方法” create the binding inside <code>&lt;script setup&gt;</code>.</li>
+    </ul>
+  ]]></change-notes>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.lang</depends>
+  <depends>JavaScript</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <localInspection language="VueExpr"
+                     shortName="VueTemplateUnresolvedReference"
+                     enabledByDefault="true"
+                     level="WARNING"
+                     implementationClass="com.github.vue3setupcreator.inspection.VueTemplateUnresolvedReferenceInspection"/>
+
+    <!-- The JavaScript language covers the Vue expression dialects (VueJS/VueTS) as well. -->
+    <lang.inspectionSuppressor language="JavaScript"
+                               implementationClass="com.github.vue3setupcreator.inspection.VueUnresolvedReferenceSuppressor"/>
+  </extensions>
+</idea-plugin>
